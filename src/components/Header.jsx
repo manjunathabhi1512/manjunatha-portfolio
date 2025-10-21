@@ -1,29 +1,20 @@
 import React from 'react'
 import { motion } from 'framer-motion'
+import mePhoto from './me.jpg'
 
 export default function Header({ theme, setTheme }) {
+  const toggleTheme = () => setTheme(theme === 'dark' ? 'light' : 'dark')
+
   return (
-    <header className="py-8">
-      <div className="container flex items-center justify-between">
-        <div>
-          <motion.h1
-            initial={{ y: -10, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.4 }}
-            className="text-2xl font-semibold"
-          >
-            Manjunatha K J
-          </motion.h1>
-          <motion.p
-            initial={{ y: -6, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.08 }}
-            className="text-sm text-slate-500"
-          >
-            Backend Developer | Golang
-          </motion.p>
-        </div>
-      </div>
+    <header className="py-10 flex flex-col items-center justify-center space-y-4">
+      <motion.img
+        src={mePhoto}
+        alt="Manjunatha K J"
+        className="w-28 h-28 rounded-full border-4 border-indigo-500 shadow-xl object-cover hover:scale-105 transition-transform duration-300"
+        initial={{ opacity: 0, scale: 0.8 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.6 }}
+      />
     </header>
   )
 }

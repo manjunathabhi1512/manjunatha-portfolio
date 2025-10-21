@@ -1,14 +1,37 @@
-import React, { useState } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 
 export default function ProjectCard({ p }) {
   const [open, setOpen] = useState(false)
+  const ref = useRef(null)
+  const [visible, setVisible] = useState(false)
+
+  useEffect(() => {
+    if (!ref.current) return
+    const node = ref.current
+    const obs = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            setVisible(true)
+            // once visible, unobserve to avoid toggling
+            obs.unobserve(node)
+          }
+        })
+      },
+      { threshold: 0.12 }
+    )
+    obs.observe(node)
+    return () => obs.disconnect()
+  }, [ref])
+
   return (
     <motion.div
+      ref={ref}
       layout
       whileHover={{ y: -6, boxShadow: '0 14px 30px rgba(12,14,22,0.12)' }}
       transition={{ type: 'spring', stiffness: 300, damping: 22 }}
-      className="card rounded-lg p-4 mb-4 shadow-sm"
+      className={`card rounded-lg p-4 mb-4 shadow-sm reveal ${visible ? 'is-visible' : ''}`}
     >
       <div className="flex items-start justify-between gap-4">
         <div>

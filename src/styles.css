@@ -5,18 +5,42 @@
 :root {
   --bg: 255 255 255;
   --text: 17 24 39;
+  --primary: 100 116 255; /* indigo-ish */
+  --accent-a: 99 102 241; /* #6366f1 */
+  --accent-b: 59 130 246; /* #3b82f6 */
+  --accent-c: 16 185 129; /* #10b981 */
+  /* semantic text colors (light theme) */
+  --text-primary: 17 24 39; /* slate-900 */
+  --text-muted: 75 85 99; /* slate-600 */
+  --heading: 15 23 42; /* slightly darker than primary */
 }
 
 [data-theme='dark'] {
   --bg: 17 24 39;
   --text: 243 244 246;
+  /* semantic text colors (dark theme) */
+  --text-primary: 226 232 240; /* slate-200 */
+  --text-muted: 148 163 184; /* slate-400 */
+  --heading: 241 245 249; /* near-white for headings */
 }
 
 body {
   background-color: rgb(var(--bg));
-  color: rgb(var(--text));
+  color: rgb(var(--text-primary));
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* Headings and typographic hierarchy */
+h1,h2,h3,h4,h5 {
+  color: rgb(var(--heading));
+  letter-spacing: -0.01em;
+}
+h1 { letter-spacing: -0.02em; }
+
+/* make paragraphs slightly muted for readable hierarchy */
+p, li, .muted {
+  color: rgb(var(--text-muted));
 }
 
 /* small utility for subtle card */
@@ -50,7 +74,9 @@ body {
 /* skill pill tweaks */
 .skills-pill {
   background: rgba(255,255,255,0.06);
-  color: inherit;
+  color: rgb(var(--text-primary));
+  font-weight: 600;
+  border: 1px solid rgba(255,255,255,0.04);
 }
 
 @media (prefers-color-scheme: light) {
@@ -72,15 +98,16 @@ body {
   overflow: hidden;
   z-index: -1;
 }
+
 .blob {
   position: absolute;
   filter: blur(60px) saturate(120%);
   opacity: 0.6;
   transform: translate3d(0,0,0);
 }
-.blob--one { width: 380px; height: 380px; background: radial-gradient(circle at 30% 30%, #ff6b6b, transparent 40%); left: -80px; top: -60px; }
-.blob--two { width: 420px; height: 420px; background: radial-gradient(circle at 70% 70%, #6b8cff, transparent 35%); right: -100px; top: 40%; }
-.blob--three { width: 300px; height: 300px; background: radial-gradient(circle at 50% 50%, #6bffd1, transparent 40%); left: 20%; bottom: -80px; }
+.blob--one { width: 420px; height: 420px; background: radial-gradient(circle at 30% 30%, rgba(var(--accent-a),0.9), transparent 40%); left: -100px; top: -80px; }
+.blob--two { width: 480px; height: 480px; background: radial-gradient(circle at 70% 70%, rgba(var(--accent-b),0.88), transparent 35%); right: -120px; top: 36%; }
+.blob--three { width: 340px; height: 340px; background: radial-gradient(circle at 50% 50%, rgba(var(--accent-c),0.85), transparent 40%); left: 18%; bottom: -90px; }
 
 @keyframes blob-move {
   0% { transform: translateY(0) translateX(0) scale(1); }
@@ -97,12 +124,14 @@ body {
 
 /* animated gradient accent text */
 .accent {
-  background: linear-gradient(90deg, #ff7a7a, #6b8cff, #6bffd1);
+  background: linear-gradient(90deg, rgba(var(--accent-a),1), rgba(var(--accent-b),1), rgba(var(--accent-c),1));
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
+  -webkit-text-fill-color: transparent; /* ensures WebKit renders clipped background as text color */
+  display: inline-block;
   background-size: 300% 300%;
-  animation: gradient-shift 8s ease infinite;
+  animation: gradient-shift 6s linear infinite;
 }
 
 @keyframes gradient-shift {
@@ -110,6 +139,46 @@ body {
   50% { background-position: 100% 50%; }
   100% { background-position: 0% 50%; }
 }
+
+/* link underline animation */
+a.underline {
+  position: relative;
+  text-decoration: none;
+}
+a.underline::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, rgba(var(--accent-a),1), rgba(var(--accent-b),1));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 260ms ease;
+  bottom: -2px;
+}
+a.underline:hover::after { transform: scaleX(1); }
+
+/* simple reveal animation for scroll into view */
+.reveal {
+  opacity: 0;
+  transform: translateY(14px) scale(0.995);
+  transition: opacity 420ms ease, transform 420ms ease;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* Links and interactive elements */
+a { color: rgb(var(--accent-b)); font-weight: 600; }
+a:hover { filter: brightness(1.06); }
+
+/* Heading emphasis for hero */
+.hero-title { font-weight: 700; color: rgb(var(--heading)); text-shadow: 0 6px 24px rgba(59,130,246,0.06); }
+
+/* make skill pills readable in dark theme specifically */
+[data-theme='dark'] .skills-pill { background: rgba(255,255,255,0.04); color: rgb(var(--text-primary)); border: 1px solid rgba(255,255,255,0.04); }
 
 /* hero/card float effect */
 .hero-float {
