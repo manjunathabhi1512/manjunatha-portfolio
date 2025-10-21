@@ -1,8 +1,6 @@
 {
   "name": "manjunatha-portfolio",
   "version": "1.0.0",
-  "homepage": "https://manjunathabhi.github.io/manjunatha-portfolio",
-
   "scripts": {
     "dev": "vite",
     "build": "vite build",
