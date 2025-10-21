@@ -1,0 +1,129 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: 255 255 255;
+  --text: 17 24 39;
+}
+
+[data-theme='dark'] {
+  --bg: 17 24 39;
+  --text: 243 244 246;
+}
+
+body {
+  background-color: rgb(var(--bg));
+  color: rgb(var(--text));
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* small utility for subtle card */
+.card {
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border: 1px solid rgba(0,0,0,0.06);
+}
+
+/* accent text */
+.accent { color: theme('colors.accent'); }
+
+/* simple container */
+.container {
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+/* Improve contrast for dark theme */
+[data-theme='dark'] .container {
+  color: rgb(243 244 246);
+}
+
+[data-theme='dark'] .card {
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border: 1px solid rgba(255,255,255,0.04);
+}
+
+/* skill pill tweaks */
+.skills-pill {
+  background: rgba(255,255,255,0.06);
+  color: inherit;
+}
+
+@media (prefers-color-scheme: light) {
+  .skills-pill { background: rgba(0,0,0,0.04); }
+}
+
+/* ======================
+   Eye-catching Animations
+   - animated background blobs
+   - animated gradient text for .accent
+   - subtle floating effect for hero cards
+   - respects prefers-reduced-motion
+   ====================== */
+
+.animated-blobs {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: -1;
+}
+.blob {
+  position: absolute;
+  filter: blur(60px) saturate(120%);
+  opacity: 0.6;
+  transform: translate3d(0,0,0);
+}
+.blob--one { width: 380px; height: 380px; background: radial-gradient(circle at 30% 30%, #ff6b6b, transparent 40%); left: -80px; top: -60px; }
+.blob--two { width: 420px; height: 420px; background: radial-gradient(circle at 70% 70%, #6b8cff, transparent 35%); right: -100px; top: 40%; }
+.blob--three { width: 300px; height: 300px; background: radial-gradient(circle at 50% 50%, #6bffd1, transparent 40%); left: 20%; bottom: -80px; }
+
+@keyframes blob-move {
+  0% { transform: translateY(0) translateX(0) scale(1); }
+  50% { transform: translateY(-30px) translateX(20px) scale(1.06); }
+  100% { transform: translateY(0) translateX(0) scale(1); }
+}
+
+.blob { animation: blob-move 9s ease-in-out infinite; }
+
+/* stagger different speeds */
+.blob--one { animation-duration: 12s; }
+.blob--two { animation-duration: 10s; animation-delay: 1s; }
+.blob--three { animation-duration: 14s; animation-delay: 0.6s; }
+
+/* animated gradient accent text */
+.accent {
+  background: linear-gradient(90deg, #ff7a7a, #6b8cff, #6bffd1);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  background-size: 300% 300%;
+  animation: gradient-shift 8s ease infinite;
+}
+
+@keyframes gradient-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* hero/card float effect */
+.hero-float {
+  transition: transform 280ms ease, box-shadow 280ms ease;
+}
+.hero-float:hover {
+  transform: translateY(-8px) rotate(-0.2deg);
+  box-shadow: 0 20px 40px rgba(13,14,22,0.12);
+}
+
+/* prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .blob,
+  .accent {
+    animation: none !important;
+  }
+}
