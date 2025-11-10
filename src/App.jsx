@@ -137,7 +137,7 @@ export default function App() {
                 <h3 className="text-2xl font-semibold mb-4 text-slate-800 dark:text-slate-100">Skills</h3>
                 <ul className="flex flex-wrap gap-2">
                   {[
-                    'Golang', 'Node.js', 'Microservices', 'PostgreSQL', 'Redis',
+                    'Golang', 'Node.js', 'Python', 'Java', 'Microservices', 'PostgreSQL', 'Redis',
                     'RabbitMQ', 'Docker', 'Kubernetes', 'AWS', 'Prometheus', 'Grafana', 'Loki'
                   ].map(skill => (
                     <li
