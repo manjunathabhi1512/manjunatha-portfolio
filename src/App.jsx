@@ -18,8 +18,15 @@ export default function App() {
       role: 'Software Development Engineer - 2',
       duration: 'Mar 2025 – Present',
       description: 'Gateway Development (Golang, Python & Node.js)',
-      bullets: ['Designed and implemented plugins for API gateway'],
-      projects: projects.filter(p => p.id === 'gateway-dev')
+      bullets: [
+        'Developed secure API gateway platform with authentication, observability, and plugin architecture.',
+        'Implemented various gateway plugins for mTLS, JWT, payload transformations, load balancing, and routing.',
+        'Collaborated with frontend and DevOps teams to ensure seamless integration and deployment.'
+      ],
+      projects: projects.filter(p =>
+        ['gateway-plugins', 'transformations', 'loadbalancer-routing'].includes(p.id)
+      )
+
     },
     {
       company: 'New Street Technologies, Bengaluru',
@@ -72,8 +79,8 @@ export default function App() {
                 Backend Developer • Golang | Node.js | Microservices
               </h2>
               <p className="mt-4 max-w-2xl mx-auto text-slate-600 dark:text-slate-400 leading-relaxed">
-                I’m a backend engineer who loves building scalable systems 
-                that are fast, reliable, and secure. Passionate about cloud-native architecture, observability, and designing 
+                I’m a backend engineer who loves building scalable systems
+                that are fast, reliable, and secure. Passionate about cloud-native architecture, observability, and designing
                 efficient workflows for real-world products.
               </p>
             </motion.div>
